@@ -10,6 +10,7 @@ class Bookshelf extends Component
         return string.replace(reg, "").toLowerCase();
     }
 
+
     render() {
         return (
             <div className="bookshelf">
@@ -18,11 +19,13 @@ class Bookshelf extends Component
                 </div>
                 <div className="bookshelf-books">
                    <ol className="books-grid">
-                       {console.log(this.removeWhiteSpace(this.props.shelfTitle))}
+
                        {this.props.books.filter( book => book.shelf.toLowerCase() === this.removeWhiteSpace(this.props.shelfTitle))
                                         .map( (book, index) => <li key={index}>
                                             <Book
-
+                                                onShelfChange={this.props.onShelfChange}
+                                                currentShelf={book.shelf}
+                                                id={book.id}
                                                 title={book.title}
                                                 authors={book.authors}
                                                 image={book.imageLinks.thumbnail}

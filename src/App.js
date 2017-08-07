@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import * as BooksAPI from './BooksAPI'
 import logo from './logo.svg';
 import './App.css';
 
@@ -12,67 +13,34 @@ import BookShelf from './components/Bookshelf';
 class App extends Component
 {
     state = {
-        books: [
-            {
-                id: "nggnmAEACAAJ",
-                title: "The Linux Command Line",
-                authors: ['William E. Shoots, Jr.'],
-                shelf: "currentlyReading",
-                subtitle: "A Complete Introduction",
-                imageLinks: {
-                    smallThumbnail: "http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
-                    thumbnail: "http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-                }
-            },
-            {
-                id: "sJf1vQAACAAJ",
-                title: "Learning Web Development with React and Bootstrap",
-                authors: ["Harmeet Singh","Mehul Bhatt"],
-                shelf: "currentlyReading",
-                subtitle: "",
-                imageLinks: {
-                    smallThumbnail: "http://books.google.com/books/content?id=sJf1vQAACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
-                    thumbnail: "http://books.google.com/books/content?id=sJf1vQAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-                }
-            },
-            {
-                id: "evuwdDLfAyYC",
-                title: "The Cuckoo's Calling",
-                authors: ['Robert Galbraith'],
-                shelf: "wantToRead",
-                subtitle: "",
-                imageLinks: {
-                    smallThumbnail: "http://books.google.com/books/content?id=evuwdDLfAyYC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-                    thumbnail: "http://books.google.com/books/content?id=evuwdDLfAyYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-                }
-            },
-            {
-                id: "jAUODAAAQBAJ",
-                title: "Needful Things",
-                authors: ["Stephen King"],
-                shelf: "read",
-                subtitle: "",
-                imageLinks: {
-                    smallThumbnail: "http://books.google.com/books/content?id=jAUODAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-                    thumbnail: "http://books.google.com/books/content?id=jAUODAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
-                }
-            }
+        books: []
+    };
 
-        ]
+    handleBookShelfChange = (bookData) => {
+        // Moves a book into the correct shelf when the users changes the shelf property
+        // It finds the chosen book in the State and updates it's shelf property coming from <Book />
+        let bookToChange = this.state.books.find(book => book.id === bookData.id);
+        bookToChange.shelf = bookData.newShelf;
+
+        // Triggers a rerender with the new data in state
+        this.setState(this.state);
     };
 
     componentDidMount()
     {
-
+        BooksAPI.getAll().then( (books) => {
+            this.setState({ books });
+        })
     }
+
 
     render() {
         return (
           <div className="App">
               <Header/>
-              <BookShelf shelfTitle="Currently Reading" books={this.state.books}/>
-              <BookShelf shelfTitle="Want To Read" books={this.state.books}/>
-              <BookShelf shelfTitle="Read" books={this.state.books}/>
+              <BookShelf shelfTitle="Currently Reading" books={this.state.books} onShelfChange={this.handleBookShelfChange}/>
+              <BookShelf shelfTitle="Want To Read" books={this.state.books} onShelfChange={this.handleBookShelfChange}/>
+              <BookShelf shelfTitle="Read" books={this.state.books} onShelfChange={this.handleBookShelfChange}/>
           </div>
         );
     }
