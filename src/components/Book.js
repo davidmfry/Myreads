@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class Book extends Component
 {
 
@@ -12,7 +11,14 @@ class Book extends Component
                     <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.image})`}}></div>
                     <div className="book-shelf-changer">
                         <select defaultValue={this.props.currentShelf} onChange={(event) => {
-                            this.props.onShelfChange({id: this.props.id, newShelf: event.target.value})
+                            this.props.onShelfChange({id: this.props.id, newShelf: event.target.value});
+
+                            // Used when adding a new book from the search page.
+                            if (this.props.sentFrom === "SearchBooks")
+                            {
+                                this.props.onUpdateShelfData(this.props.id, event.target.value);
+                            }
+
                         }}>
                             <option value="none" disabled>Move to...</option>
                             <option value="none">none</option>
@@ -23,7 +29,11 @@ class Book extends Component
                     </div>
                 </div>
                 <div className="book-title">{this.props.title}</div>
-                <div className="book-authors">{this.props.authors[0]}</div>
+                <div className="book-authors"> {this.props.authors.map( (author, key) => (
+                    <span key={key}>{author}<br/></span>
+                ))}
+
+                </div>
             </div>
         );
     }

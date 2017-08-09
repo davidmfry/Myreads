@@ -21,16 +21,26 @@ class Bookshelf extends Component
                    <ol className="books-grid">
 
                        {this.props.books.filter( book => book.shelf.toLowerCase() === this.removeWhiteSpace(this.props.shelfTitle))
-                                        .map( (book, index) => <li key={index}>
+                                        .map( (book, index) => {
+                                            // Checks if the authors array is empty
+                                            // If it is it sends and empty array for the authors on the book component and stops a crash
+                                            // in the map function on the <Book/>
+                                            if (book.authors === undefined)
+                                            {
+                                                book.authors = []
+                                            }
+                                            return (<li key={index}>
                                             <Book
                                                 onShelfChange={this.props.onShelfChange}
+                                                sentFrom="Bookshelf"
                                                 currentShelf={book.shelf}
                                                 id={book.id}
                                                 title={book.title}
                                                 authors={book.authors}
                                                 image={book.imageLinks.thumbnail}
                                             />
-                                        </li>)}
+                                        </li>)
+                                        })}
                    </ol>
 
                 </div>

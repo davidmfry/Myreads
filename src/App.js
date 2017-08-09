@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
-import logo from './logo.svg';
 import './App.css';
 
 // Component Imports
@@ -25,20 +24,24 @@ class App extends Component
 
         if (bookToChange === undefined)
         {
-            BooksAPI.get(bookData.id).then( (book) => {
+            bookToChange = BooksAPI.get(bookData.id).then( (book) => {
                 book.shelf = bookData.newShelf;
                 this.setState({
                     books: this.state.books.concat(book)
                 })
-            })
+            });
+
+
         }
         else
         {
             bookToChange.shelf = bookData.newShelf;
+
         }
 
 
         // Triggers a re-render with the new data in state
+        BooksAPI.update(bookToChange, bookData.newShelf);
         this.setState(this.state);
     };
 
