@@ -15,10 +15,7 @@ class Book extends Component
 
                             // Used when adding a new book from the search page.
                             if (this.props.sentFrom === "SearchBooks")
-                            {
                                 this.props.onUpdateShelfData(this.props.id, event.target.value);
-                            }
-
                         }}>
                             <option value="none" disabled>Move to...</option>
                             <option value="none">none</option>

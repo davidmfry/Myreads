@@ -4,12 +4,11 @@ import Book from '../components/Book';
 
 class Bookshelf extends Component
 {
-    removeWhiteSpace(string)
+    removeWhiteSpace = (string) =>
     {
         let reg = new RegExp(" ", "g");
         return string.replace(reg, "").toLowerCase();
-    }
-
+    };
 
     render() {
         return (

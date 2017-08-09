@@ -15,12 +15,12 @@ class SearchBooks extends Component
         noResult: false
     };
 
-    updateQuery(query)
+    updateQuery = (query) =>
     {
         this.setState({ query: query })
-    }
+    };
 
-    handleSubmit(event)
+    handleSubmit = (event) =>
     {
         // Submits the finished user query and sends it to the BooksAPI Search.  It returns an array of book objects
         event.preventDefault();
@@ -44,11 +44,11 @@ class SearchBooks extends Component
         BooksAPI.update(bookToUpdate, newShelf);
     };
 
-    render() {
+    render()
+    {
 
         let searchResults = null;
-
-        // Renders a did not find message to the user
+        // Renders a "did not find message" to the user
         if (this.state.noResult)
         {
             searchResults = <div>

@@ -30,21 +30,14 @@ class App extends Component
                     books: this.state.books.concat(book)
                 })
             });
-
-
         }
         else
-        {
             bookToChange.shelf = bookData.newShelf;
-
-        }
-
 
         // Triggers a re-render with the new data in state
         BooksAPI.update(bookToChange, bookData.newShelf);
         this.setState(this.state);
     };
-
 
     componentDidMount()
     {
@@ -52,7 +45,6 @@ class App extends Component
             this.setState({ books });
         })
     }
-
 
     render() {
         return (
