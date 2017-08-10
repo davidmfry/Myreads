@@ -20,10 +20,9 @@ class SearchBooks extends Component
         this.setState({ query: query })
     };
 
-    handleSubmit = (event) =>
+    handleSearchQuery = (event) =>
     {
         // Submits the finished user query and sends it to the BooksAPI Search.  It returns an array of book objects
-        event.preventDefault();
         BooksAPI.search(this.state.query, 20).then( (results) => {
             // Handles if there are no results from the search query
             if (Array.isArray(results))
@@ -31,9 +30,9 @@ class SearchBooks extends Component
                 this.setState({ noResult:false, results:results });
             }
             else
-                this.setState({noResult: true, query: ''});
+                this.setState({noResult: true});
         })
-    }
+    };
 
     onUpdateShelfData = (id, newShelf) =>
     {
@@ -88,11 +87,14 @@ class SearchBooks extends Component
                 <div className="search-books-bar">
                     <Link to="/" className="close-search"></Link>
                     <div className="search-books-input-wrapper">
-                        <form onSubmit={(event) => this.handleSubmit(event)}>
+                        <form onsubmit={(event) => event.preventDefault()}>
                             <input type="text"
                                    placeholder="Search by title, author or category"
                                    value={this.state.query}
-                                   onChange={ (event) => this.updateQuery(event.target.value)}
+                                   onChange={ (event) => {
+                                       this.updateQuery(event.target.value);
+                                       this.handleSearchQuery(event);
+                                   }}
                             />
                         </form>
                     </div>

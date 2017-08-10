@@ -27,6 +27,7 @@ class Book extends Component
                 </div>
                 <div className="book-title">{this.props.title}</div>
                 <div className="book-authors"> {this.props.authors.map( (author, key) => (
+                    // The Authors array is checked on the parent component. SEE <Bookshelf/> and <SearchBooks/>
                     <span key={key}>{author}<br/></span>
                 ))}
 
