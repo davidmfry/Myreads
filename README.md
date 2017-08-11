@@ -6,5 +6,7 @@ run npm install first, then install dependencies.
 To start the app use npm start
 
 App dependencies:\
-react-router-dom
+react-router-dom\
+react-key-index
+
 

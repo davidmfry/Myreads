@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import * as reactKeyIndex from 'react-key-index';
 import Book from '../components/Book';
 
 class Bookshelf extends Component
@@ -10,7 +10,10 @@ class Bookshelf extends Component
         return string.replace(reg, "").toLowerCase();
     };
 
-    render() {
+    render()
+    {
+
+
         return (
             <div className="bookshelf">
                 <div className="bookshelf-title">
@@ -28,7 +31,7 @@ class Bookshelf extends Component
                                             {
                                                 book.authors = []
                                             }
-                                            return (<li key={index}>
+                                            return (<li key={book.id}>
                                             <Book
                                                 onShelfChange={this.props.onShelfChange}
                                                 sentFrom="Bookshelf"
