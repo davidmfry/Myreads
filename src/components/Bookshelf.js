@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import * as reactKeyIndex from 'react-key-index';
 import Book from '../components/Book';
 
 class Bookshelf extends Component
